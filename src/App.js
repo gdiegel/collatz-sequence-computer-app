@@ -1,11 +1,14 @@
 import React from 'react'
-import "./App.css";
+import Jumbo from './components/Jumbo'
+import SeedInput from './components/SeedInput'
 
 export default class App extends React.Component {
     render() {
         return (
-            <div className="App">
-                <h1>Woop!</h1>
-            </div>)
+            <React.StrictMode>
+                <Jumbo/>
+                <SeedInput/>
+            </React.StrictMode>
+        )
     }
 }
