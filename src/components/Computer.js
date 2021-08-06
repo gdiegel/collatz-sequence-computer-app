@@ -10,9 +10,10 @@ export default class Computer extends React.Component {
         display: "none"
     }
 
-    handleChange = event => {
-        console.log(`Event target value [${event.target.value}]`)
-        this.setState({seed: event.target.value});
+    handleChange = async event => {
+        console.log(`onChange target value [${event.target.value}]`)
+        await this.setState({seed: event.target.value});
+        console.log(`State value [${this.state.seed}]`)
     };
 
     handleResponse = response => {
@@ -20,20 +21,27 @@ export default class Computer extends React.Component {
         this.setState({sequence: response.data.toString()})
     };
 
-    handleClick = event => {
+    handleError = error => {
+        if (error.response) {
+            console.log(error.response.data);
+            console.log(error.response.status);
+            console.log(error.response.headers);
+            this.setState({sequence: error.response.data})
+        } else if (error.request) {
+            console.log(error.request);
+        }
+    };
+
+    handleClick = async event => {
         event.preventDefault();
-        console.log(`Event target value [${event.target.value}]`)
         console.log(`State value [${this.state.seed}]`)
-        axios.get(`${computerServiceUrl}${this.state.seed}`, {crossdomain: true})
+        await axios.get(`${computerServiceUrl}${this.state.seed}`, {crossdomain: true})
             .then(this.handleResponse)
-            .catch(function (error) {
-                console.log(error);
-            })
+            .catch(this.handleError)
             .then(this.displaySequenceOutput);
     };
 
-    displaySequenceOutput = event => {
-        console.log(event);
+    displaySequenceOutput = () => {
         this.setState({display: "block"});
     };
 
@@ -56,7 +64,6 @@ export default class Computer extends React.Component {
                               style={{display: this.state.display}}
                               rows="5"
                               className="form-control m-2"
-                              placeholder="Sequence"
                               readOnly
                               value={this.state.sequence}/>
                 </form>
