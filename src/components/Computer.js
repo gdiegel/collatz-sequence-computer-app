@@ -6,7 +6,8 @@ const computerServiceUrl = 'https://collatz-sequence-computer-service.azurewebsi
 export default class Computer extends React.Component {
     state = {
         seed: 0,
-        sequence: []
+        sequence: [],
+        display: "none"
     }
 
     handleChange = event => {
@@ -28,8 +29,12 @@ export default class Computer extends React.Component {
             .catch(function (error) {
                 console.log(error);
             })
-            .then(function () {
-            });
+            .then(this.displaySequenceOutput);
+    };
+
+    displaySequenceOutput = event => {
+        console.log(event);
+        this.setState({display: "block"});
     };
 
     render() {
@@ -37,11 +42,23 @@ export default class Computer extends React.Component {
             <div className="container">
                 <form>
                     <div className="form-group">
-                        <input type="number" className="form-control form-control-lg m-2" id="seedInput" placeholder="Enter seed value"
+                        <input id="seedInput"
+                               type="number"
+                               style={{width: "50%"}}
+                               className="form-control form-control-lg m-2"
+                               placeholder="Enter seed value"
                                onChange={this.handleChange}/>
                     </div>
-                    <button className="btn btn-primary m-2" onClick={this.handleClick}>Compute</button>
-                    <input className="form-control m-2" type="text" placeholder="Sequence" readOnly value={this.state.sequence}/>
+                    <button className="btn btn-primary m-2"
+                            onClick={this.handleClick}>Compute
+                    </button>
+                    <textarea id="sequenceOutput"
+                              style={{display: this.state.display}}
+                              rows="5"
+                              className="form-control m-2"
+                              placeholder="Sequence"
+                              readOnly
+                              value={this.state.sequence}/>
                 </form>
             </div>
         )
