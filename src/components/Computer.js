@@ -13,11 +13,9 @@ export default class Computer extends React.Component {
     handleChange = async event => {
         console.log(`onChange target value [${event.target.value}]`)
         await this.setState({seed: event.target.value});
-        console.log(`State value [${this.state.seed}]`)
     };
 
     handleResponse = response => {
-        console.log(response);
         this.setState({sequence: response.data.toString()})
     };
 
