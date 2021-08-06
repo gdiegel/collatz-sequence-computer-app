@@ -47,12 +47,12 @@ export default class Computer extends React.Component {
 
     render() {
         return (
-            <div className="container">
+            <div className="container" style={{"margin-top": 25}}>
                 <form>
                     <div className="form-group">
                         <input id="seedInput"
                                type="number"
-                               style={{width: "50%"}}
+                               style={{width: "40%"}}
                                className="form-control form-control-lg m-2"
                                placeholder="Enter seed value"
                                onChange={this.handleChange}/>
