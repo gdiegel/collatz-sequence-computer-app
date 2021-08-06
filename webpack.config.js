@@ -24,7 +24,6 @@ module.exports = {
     resolve: {extensions: ["*", ".js", ".jsx"]},
     output: {
         path: path.resolve(__dirname, "dist/"),
-        publicPath: "/dist/",
         filename: "bundle.js"
     },
     devServer: {
@@ -36,7 +35,8 @@ module.exports = {
     plugins: [
         new webpack.HotModuleReplacementPlugin(),
         new HtmlWebpackPlugin({
-            template: 'public/index.html',
+            template: "public/index.html",
+            favicon: "public/favicon.ico"
         })
     ]
 };
