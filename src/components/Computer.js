@@ -1,33 +1,30 @@
 import React from 'react'
 
 const axios = require('axios').default;
-const baseUrl = 'https://collatz-sequence-computer-service.azurewebsites.net/collatz/';
+const computerServiceUrl = 'https://collatz-sequence-computer-service.azurewebsites.net/collatz/';
 
-export default class SeedInput extends React.Component {
+export default class Computer extends React.Component {
     state = {
-        value: 0
+        seed: 0,
+        sequence: []
     }
 
-    /**
-     * @param {React.ChangeEvent<HTMLInputElement>} event
-     */
-    handleChange = (event) => {
+    handleChange = event => {
         console.log(`Event target value [${event.target.value}]`)
-        this.setState({value: event.target.value});
+        this.setState({seed: event.target.value});
     };
 
-    /**
-     * @param {React.FormEvent<HTMLButtonElement>} event
-     */
-    handleClick = (event) => {
+    handleResponse = response => {
+        console.log(response);
+        this.setState({sequence: response.data.toString()})
+    };
+
+    handleClick = event => {
         event.preventDefault();
         console.log(`Event target value [${event.target.value}]`)
-        console.log(`State value [${this.state.value}]`)
-        // this.setState({value: event.target.value});
-        axios.get(`${baseUrl}${this.state.value}`, {crossdomain: true})
-            .then(function (response) {
-                console.log(response);
-            })
+        console.log(`State value [${this.state.seed}]`)
+        axios.get(`${computerServiceUrl}${this.state.seed}`, {crossdomain: true})
+            .then(this.handleResponse)
             .catch(function (error) {
                 console.log(error);
             })
@@ -44,9 +41,9 @@ export default class SeedInput extends React.Component {
                                onChange={this.handleChange}/>
                     </div>
                     <button className="btn btn-primary m-2" onClick={this.handleClick}>Compute</button>
+                    <input className="form-control m-2" type="text" placeholder="Sequence" readOnly value={this.state.sequence}/>
                 </form>
             </div>
         )
     }
-
 }
