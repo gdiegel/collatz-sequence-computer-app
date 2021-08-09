@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 
 export default class Jumbo extends React.Component {
 
@@ -19,6 +19,6 @@ export default class Jumbo extends React.Component {
                     </div>
                 </div>
             </React.Fragment>
-        )
+        );
     }
 }

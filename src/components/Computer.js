@@ -1,22 +1,22 @@
-import React from 'react'
+import React from "react";
 
-const axios = require('axios').default;
-const computerServiceUrl = 'https://collatz-sequence-computer-service.azurewebsites.net/collatz/';
+const axios = require("axios").default;
+const computerServiceUrl = "https://collatz-sequence-computer-service.azurewebsites.net/collatz/";
 
 export default class Computer extends React.Component {
     state = {
         seed: 0,
         sequence: [],
         display: "none"
-    }
+    };
 
     handleChange = async event => {
-        console.log(`onChange target value [${event.target.value}]`)
+        console.log(`onChange target value [${event.target.value}]`);
         await this.setState({seed: event.target.value});
     };
 
     handleResponse = response => {
-        this.setState({sequence: response.data.toString()})
+        this.setState({sequence: response.data.toString()});
     };
 
     handleError = error => {
@@ -24,7 +24,7 @@ export default class Computer extends React.Component {
             console.log(error.response.data);
             console.log(error.response.status);
             console.log(error.response.headers);
-            this.setState({sequence: error.response.data})
+            this.setState({sequence: error.response.data});
         } else if (error.request) {
             console.log(error.request);
         }
@@ -32,7 +32,7 @@ export default class Computer extends React.Component {
 
     handleClick = async event => {
         event.preventDefault();
-        console.log(`State value [${this.state.seed}]`)
+        console.log(`State value [${this.state.seed}]`);
         await axios.get(`${computerServiceUrl}${this.state.seed}`, {crossdomain: true})
             .then(this.handleResponse)
             .catch(this.handleError)
@@ -66,6 +66,6 @@ export default class Computer extends React.Component {
                               value={this.state.sequence}/>
                 </form>
             </div>
-        )
+        );
     }
 }
