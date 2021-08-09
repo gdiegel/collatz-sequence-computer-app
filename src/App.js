@@ -1,12 +1,12 @@
 import React from "react";
-import Jumbo from "./components/Jumbo";
+import InfoHeader from "./components/infoHeader";
 import Computer from "./components/Computer";
 
 export default class App extends React.Component {
     render() {
         return (
             <React.StrictMode>
-                <Jumbo/>
+                <InfoHeader/>
                 <Computer/>
             </React.StrictMode>
         );
