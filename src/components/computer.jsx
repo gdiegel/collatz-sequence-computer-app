@@ -45,7 +45,7 @@ export default class Computer extends React.Component {
 
     render() {
         return (
-            <div className="container" style={{"margin-top": 25}}>
+            <div className="container" style={{marginTop: 25}}>
                 <form>
                     <div className="form-group">
                         <input id="seedInput"

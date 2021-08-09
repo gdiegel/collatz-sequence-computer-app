@@ -12,7 +12,7 @@ export default class InfoHeader extends React.Component {
                         <a type="button" className="btn btn-primary btn-sm" role="button"
                            href="https://en.wikipedia.org/wiki/Collatz_conjecture">Learn more</a>
                         <a type="button" className="btn btn-primary btn-sm" role="button"
-                           style={{"margin-right": "5px", "margin-left": "5px"}}
+                           style={{marginRight: "5px", marginLeft: "5px"}}
                            href="https://github.com/gdiegel/collatz-sequence-computer-app">Frontend</a>
                         <a type="button" className="btn btn-primary btn-sm" role="button"
                            href="https://github.com/gdiegel/collatz-sequence-computer-service">Backend</a>
