@@ -22,6 +22,9 @@ export default () => {
     const handleClick = async event => {
         event.preventDefault();
         console.log(`State value [${seed}]`);
+        if (!seed || seed === 0 || isNaN(seed)) {
+            return;
+        }
         await axios.get(`${computerServiceUrl}${seed}`, {crossdomain: true})
             .then(response => {
                 setSequence(response.data);
