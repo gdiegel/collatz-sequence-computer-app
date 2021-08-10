@@ -10,7 +10,9 @@ const computerServiceUrl = "https://collatz-sequence-computer-service.azurewebsi
 export default () => {
     const [seed, setSeed] = useState(0);
     const [sequence, setSequence] = useState([]);
-    const [display, setDisplay] = useState("none");
+    const [displayOutput, setDisplayOutput] = useState("none");
+    const [displayWarning, setDisplayWarning] = useState("none");
+    const [alertText, setAlertText] = useState("none");
 
     const handleChange = event => {
         console.log(`onChange target value [${event.target.value}]`);
@@ -21,23 +23,27 @@ export default () => {
         event.preventDefault();
         console.log(`State value [${seed}]`);
         await axios.get(`${computerServiceUrl}${seed}`, {crossdomain: true})
-            .then(response => setSequence(response.data))
+            .then(response => {
+                setSequence(response.data);
+                setDisplayOutput("block");
+                setDisplayWarning("none");
+            })
             .catch(error => {
                 if (error.response) {
-                    setSequence(error.response.data);
+                    setAlertText(error.response.data);
+                    setDisplayWarning("block");
                 } else if (error.request) {
                     console.log(error.request);
                 }
-            })
-            .then(() => setDisplay("block"));
+            });
     };
 
     return (
         <React.StrictMode>
             <InfoHeader/>
-            <Computer seed={seed} onChange={handleChange} onClick={handleClick}/>
-            <SequenceOutput sequence={sequence} display={display}/>
-            <Visualization sequence={sequence} display={display}/>
+            <Computer seed={seed} onChange={handleChange} onClick={handleClick} alertText={alertText} displayWarning={displayWarning}/>
+            <SequenceOutput sequence={sequence} display={displayOutput}/>
+            <Visualization sequence={sequence} display={displayOutput}/>
         </React.StrictMode>
     );
 }

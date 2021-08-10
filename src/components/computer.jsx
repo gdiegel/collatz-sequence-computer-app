@@ -11,6 +11,9 @@ export default props => (
                        placeholder="Enter seed value"
                        onChange={props.onChange}/>
                 <button className="btn btn-primary m-2" onClick={props.onClick}>Compute</button>
+                <div className="alert alert-warning m-2" role="alert" style={{display: props.displayWarning}}>
+                    {props.alertText}
+                </div>
             </div>
         </form>
     </div>
