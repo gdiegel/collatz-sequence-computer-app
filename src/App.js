@@ -15,7 +15,6 @@ export default () => {
     const [alertText, setAlertText] = useState("none");
 
     const handleChange = event => {
-        console.log(`onChange target value [${event.target.value}]`);
         setSeed(event.target.value);
     };
 
